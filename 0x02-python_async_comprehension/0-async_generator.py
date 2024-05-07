@@ -22,30 +22,11 @@ Example:
 
 import asyncio
 import random
+from typing import Generator
 
 
-async def async_generator() -> float:
-    """
-    Asynchronous Generator Coroutine
-
-    This coroutine loops 10 times, each time asynchronously waits for 1 second,
-    then yields a random number between 0 and 10.
-
-    Yields:
-        float: A random number between 0 and 10.
-    """
-    for _ in range(10):
+async def async_generator() -> Generator[float, None, None]:
+    """Loop 10 times, wait 1 sec each time"""
+    for i in range(10):
         await asyncio.sleep(1)
-        yield random.uniform(0, 10)
-
-
-async def print_yielded_values():
-    """
-    Print Yielded Values Coroutine
-
-    This coroutine prints the values yielded by async_generator.
-    """
-    result = []
-    async for i in async_generator():
-        result.append(i)
-    print(result)
+        yield random.random() * 10
